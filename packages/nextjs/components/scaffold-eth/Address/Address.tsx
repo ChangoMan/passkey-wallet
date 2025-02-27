@@ -70,6 +70,7 @@ const getPrevSize = <T extends SizeMap>(sizeMap: T, currentSize: keyof T, step =
 type AddressProps = {
   address?: AddressType;
   disableAddressLink?: boolean;
+  isSimpleView?: boolean;
   format?: "short" | "long";
   size?: "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl";
   onlyEnsOrAddress?: boolean;
@@ -78,6 +79,7 @@ type AddressProps = {
 export const Address = ({
   address,
   disableAddressLink,
+  isSimpleView,
   format,
   size = "base",
   onlyEnsOrAddress = false,
@@ -114,23 +116,10 @@ export const Address = ({
 
   if (!checkSumAddress) {
     return (
-      <div className="flex items-center">
-        <div
-          className="flex-shrink-0 skeleton rounded-full"
-          style={{
-            width: (blockieSizeMap[blockieSize] * 24) / blockieSizeMap["base"],
-            height: (blockieSizeMap[blockieSize] * 24) / blockieSizeMap["base"],
-          }}
-        ></div>
-        <div className="flex flex-col space-y-1">
-          {!onlyEnsOrAddress && (
-            <div className={`ml-1.5 skeleton rounded-lg font-bold ${textSizeMap[ensSize]}`}>
-              <span className="invisible">0x1234...56789</span>
-            </div>
-          )}
-          <div className={`ml-1.5 skeleton rounded-lg ${textSizeMap[addressSize]}`}>
-            <span className="invisible">0x1234...56789</span>
-          </div>
+      <div className="animate-pulse flex flex-col items-center justify-center gap-2">
+        {!isSimpleView && <div className="rounded-full bg-slate-300 h-10 w-10"></div>}
+        <div className="flex items-center space-y-6">
+          <div className="h-6 w-48 bg-slate-300 rounded"></div>
         </div>
       </div>
     );
@@ -142,16 +131,14 @@ export const Address = ({
 
   const blockExplorerAddressLink = getBlockExplorerAddressLink(targetNetwork, checkSumAddress);
 
+  const containerClass = isSimpleView ? "" : "flex flex-col items-center";
+  const addressContainerClass = isSimpleView ? "flex items-center" : "flex items-center mt-1";
+  const addressClass = isSimpleView ? `text-${size}` : `text-${size} font-normal`;
+
   return (
-    <div className="flex items-center flex-shrink-0">
-      <div className="flex-shrink-0">
-        <BlockieAvatar
-          address={checkSumAddress}
-          ensImage={ensAvatar}
-          size={(blockieSizeMap[blockieSize] * 24) / blockieSizeMap["base"]}
-        />
-      </div>
-      <div className="flex flex-col">
+    <div className={containerClass}>
+      {!isSimpleView && <BlockieAvatar address={checkSumAddress} ensImage={ensAvatar} size={40} />}
+      <div className={addressContainerClass}>
         {showSkeleton &&
           (isEnsNameLoading ? (
             <div className={`ml-1.5 skeleton rounded-lg font-bold ${textSizeMap[ensSize]}`}>
