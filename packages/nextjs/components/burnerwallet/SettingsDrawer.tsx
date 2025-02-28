@@ -1,7 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useDisconnect } from "wagmi";
-import { ChevronLeftIcon, Cog6ToothIcon, CurrencyDollarIcon, HeartIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronLeftIcon,
+  Cog6ToothIcon,
+  CurrencyDollarIcon,
+  HeartIcon,
+  LockClosedIcon,
+} from "@heroicons/react/24/outline";
 import {
   Drawer,
   DrawerClose,
@@ -31,22 +38,24 @@ export const SettingsDrawer = () => {
           </DrawerClose>
           <DrawerTitle className="m-0 text-xl md:text-2xl">Settings</DrawerTitle>
         </DrawerHeader>
-        <div className="flex flex-col gap-2 px-6 mt-1 divide-y divide-border-muted bg-base-200">
-          <div className="flex items-center justify-between mb-1">
+        <div className="flex flex-col px-6 mt-1 divide-y divide-border-muted bg-base-200">
+          <div className="flex items-center justify-between pb-3">
             Dark Mode <SwitchTheme />
           </div>
-
-          <div className="pt-5 pb-3">
+          <div className="py-3">
+            <Link
+              href="https://help.coinbase.com/en/wallet/getting-started/smart-wallet-recovery"
+              className="inline-block hover:text-accent hover:underline"
+              target="_blank"
+            >
+              <LockClosedIcon className="inline-block w-5 h-5 -mt-1" /> Smart Wallet Recovery
+            </Link>
+          </div>
+          <div className="pt-4">
             <button className="btn btn-sm btn-error btn-outline" onClick={() => disconnect()}>
               Disconnect Wallet
             </button>
           </div>
-
-          {/* <div className="pt-3">
-            <Link href="/info" className="inline-block hover:text-primary">
-              <QuestionMarkCircleIcon className="inline-block w-5 h-5 -mt-1" /> About Burner Wallet
-            </Link>
-          </div> */}
         </div>
         <DrawerFooter className="pb-4 gap-2 bg-base-200">
           {nativeCurrencyPrice > 0 && (
