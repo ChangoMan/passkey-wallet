@@ -1,42 +1,18 @@
 "use client";
 
-import { coinbaseWallet } from "@wagmi/connectors";
-import type { NextPage } from "next";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount } from "wagmi";
+import { History } from "~~/components/burnerwallet/History";
+import { useGetHistory } from "~~/hooks/useGetHistory";
 
-const Home: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
-  const { connect } = useConnect();
-  const { disconnect } = useDisconnect();
+export default function Home() {
+  const { address: connectedAddress = "" } = useAccount();
+  const { chainId, isLoading, history, refetchQuery } = useGetHistory({ address: connectedAddress });
 
   return (
-    <>
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <div className="flex justify-center items-center flex-col gap-4">
-            <button
-              className="btn btn-primary"
-              onClick={() =>
-                connect({
-                  connector: coinbaseWallet({
-                    appName: "Passkey Wallet",
-                    preference: {
-                      options: "smartWalletOnly",
-                    },
-                  }),
-                })
-              }
-            >
-              Connect
-            </button>
-            <button className="btn btn-error btn-outline" onClick={() => disconnect()}>
-              Disconnect
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
+    <div className="max-w-xl mx-auto">
+      <section className="px-6 pb-28 pt-2 divide-y">
+        {connectedAddress && <History chainId={chainId} history={history} isLoading={isLoading} />}
+      </section>
+    </div>
   );
-};
-
-export default Home;
+}

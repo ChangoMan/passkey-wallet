@@ -3,19 +3,22 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import { Toaster } from "react-hot-toast";
-import { type State, WagmiProvider } from "wagmi";
+import { type State, WagmiProvider, useAccount } from "wagmi";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
 import { useInitializeNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
+import { useGetHistory } from "~~/hooks/useGetHistory";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   useInitializeNativeCurrencyPrice();
+  const { address: connectedAddress = "" } = useAccount();
+  const { refetchQuery } = useGetHistory({ address: connectedAddress });
 
   return (
     <>
       <div className="max-w-xl mx-auto min-h-screen h-full bg-base-200 md:border-x border-base-100 shadow-lg">
-        <Header />
+        <Header updateHistory={refetchQuery} />
         <main>
           <div className="max-w-xl mx-auto">
             <section className="px-6 pb-28 pt-2 divide-y">{children}</section>

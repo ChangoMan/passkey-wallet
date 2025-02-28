@@ -20,6 +20,14 @@ type GlobalState = {
   setIsNativeCurrencyFetching: (newIsNativeCurrencyFetching: boolean) => void;
   targetNetwork: ChainWithAttributes;
   setTargetNetwork: (newTargetNetwork: ChainWithAttributes) => void;
+  isQrReaderOpen: boolean;
+  setIsQrReaderOpen: (newValue: boolean) => void;
+  sendEthToAddress: string;
+  setSendEthToAddress: (newValue: string) => void;
+  isTransactionConfirmOpen: boolean;
+  setIsTransactionConfirmOpen: (newValue: boolean) => void;
+  isSendDrawerOpen: boolean;
+  setIsSendDrawerOpen: (newValue: boolean) => void;
 };
 
 export const useGlobalState = create<GlobalState>(set => ({
@@ -33,4 +41,12 @@ export const useGlobalState = create<GlobalState>(set => ({
     set(state => ({ nativeCurrency: { ...state.nativeCurrency, isFetching: newValue } })),
   targetNetwork: scaffoldConfig.targetNetworks[0],
   setTargetNetwork: (newTargetNetwork: ChainWithAttributes) => set(() => ({ targetNetwork: newTargetNetwork })),
+  isQrReaderOpen: false,
+  setIsQrReaderOpen: (newValue: boolean): void => set(() => ({ isQrReaderOpen: newValue })),
+  sendEthToAddress: "",
+  setSendEthToAddress: (newValue: string): void => set(() => ({ sendEthToAddress: newValue })),
+  isTransactionConfirmOpen: false,
+  setIsTransactionConfirmOpen: (newValue: boolean): void => set(() => ({ isTransactionConfirmOpen: newValue })),
+  isSendDrawerOpen: false,
+  setIsSendDrawerOpen: (newValue: boolean): void => set(() => ({ isSendDrawerOpen: newValue })),
 }));
