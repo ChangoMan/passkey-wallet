@@ -112,7 +112,6 @@ export const Address = ({
 
   const addressSize = showSkeleton && !onlyEnsOrAddress ? getPrevSize(textSizeMap, size, 2) : size;
   const ensSize = getNextSize(textSizeMap, addressSize);
-  const blockieSize = showSkeleton && !onlyEnsOrAddress ? getNextSize(blockieSizeMap, addressSize, 4) : addressSize;
 
   if (!checkSumAddress) {
     return (
@@ -133,7 +132,6 @@ export const Address = ({
 
   const containerClass = isSimpleView ? "" : "flex flex-col items-center";
   const addressContainerClass = isSimpleView ? "flex items-center" : "flex items-center mt-1";
-  const addressClass = isSimpleView ? `text-${size}` : `text-${size} font-normal`;
 
   return (
     <div className={containerClass}>
