@@ -76,23 +76,32 @@ export const Header = ({ updateHistory }: HeaderProps) => {
           </>
         )}
         {!connectedAddress && (
-          <div className="flex items-center justify-center h-96">
-            <button
-              className="btn btn-lg btn-primary"
-              onClick={() =>
-                connect({
-                  connector: coinbaseWallet({
-                    appName: "Passkey Wallet",
-                    preference: {
-                      options: "smartWalletOnly",
-                    },
-                  }),
-                })
-              }
-            >
-              Connect Wallet
-            </button>
-          </div>
+          <>
+            <div className="flex items-center justify-center min-h-80 text-center">
+              <div>
+                <h1 className="text-3xl font-medium">Smart Burner Wallet</h1>
+                <p className="text-lg">
+                  Quickly create and manage a smart wallet using a passkey. Backed by enterprise-grade security with
+                  Coinbase.
+                </p>
+                <button
+                  className="mt-4 btn btn-lg btn-primary"
+                  onClick={() =>
+                    connect({
+                      connector: coinbaseWallet({
+                        appName: "Passkey Wallet",
+                        preference: {
+                          options: "smartWalletOnly",
+                        },
+                      }),
+                    })
+                  }
+                >
+                  Get Started
+                </button>
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>
