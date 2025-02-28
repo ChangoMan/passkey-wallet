@@ -80,7 +80,7 @@ export const useGetHistory = ({ address }: { address: string }) => {
           chain && chain.rpcUrls
             ? (chain.rpcUrls["default"].http as unknown as string)
             : "https://eth-mainnet.g.alchemy.com/v2",
-          { batch: true },
+          { batch: false },
         ),
       }),
     [chain],
