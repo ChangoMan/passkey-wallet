@@ -1,14 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useDisconnect } from "wagmi";
-import {
-  ChevronLeftIcon,
-  Cog6ToothIcon,
-  CurrencyDollarIcon,
-  HeartIcon,
-  QuestionMarkCircleIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, Cog6ToothIcon, CurrencyDollarIcon, HeartIcon } from "@heroicons/react/24/outline";
 import {
   Drawer,
   DrawerClose,
@@ -49,11 +42,11 @@ export const SettingsDrawer = () => {
             </button>
           </div>
 
-          <div className="pt-3">
+          {/* <div className="pt-3">
             <Link href="/info" className="inline-block hover:text-primary">
               <QuestionMarkCircleIcon className="inline-block w-5 h-5 -mt-1" /> About Burner Wallet
             </Link>
-          </div>
+          </div> */}
         </div>
         <DrawerFooter className="pb-4 gap-2 bg-base-200">
           {nativeCurrencyPrice > 0 && (

@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { type State, WagmiProvider, useAccount } from "wagmi";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
+import { QrCodeReader } from "~~/components/burnerwallet/QrCodeReader";
 import { useInitializeNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
 import { useGetHistory } from "~~/hooks/useGetHistory";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
@@ -23,6 +24,7 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
         <Footer />
       </div>
       <Toaster />
+      <QrCodeReader />
     </>
   );
 };
