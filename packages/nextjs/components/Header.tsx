@@ -1,5 +1,6 @@
 "use client";
 
+import { RandomLoadingBackground } from "./RandomLoadingBackground";
 import { coinbaseWallet } from "@wagmi/connectors";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useLocalStorage } from "usehooks-ts";
@@ -40,6 +41,7 @@ export const Header = ({ updateHistory }: HeaderProps) => {
           />
         </div>
       )}
+      {!connectedAddress && <RandomLoadingBackground />}
       <div className="relative z-10 p-6 glass">
         {connectedAddress && (
           <>
@@ -74,7 +76,7 @@ export const Header = ({ updateHistory }: HeaderProps) => {
           </>
         )}
         {!connectedAddress && (
-          <div className="text-center">
+          <div className="flex items-center justify-center h-96">
             <button
               className="btn btn-lg btn-primary"
               onClick={() =>

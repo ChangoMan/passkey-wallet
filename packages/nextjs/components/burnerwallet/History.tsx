@@ -42,7 +42,7 @@ export const History = ({ chainId, isLoading, history }: HistoryProps) => {
                       {item.value.toFixed(4)} {item.asset}
                     </>
                   ) : (
-                    "0"
+                    ""
                   )}
                 </div>
               </li>

@@ -19,11 +19,7 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
     <>
       <div className="max-w-xl mx-auto min-h-screen h-full bg-base-200 md:border-x border-base-100 shadow-lg">
         <Header updateHistory={refetchQuery} />
-        <main>
-          <div className="max-w-xl mx-auto">
-            <section className="px-6 pb-28 pt-2 divide-y">{children}</section>
-          </div>
-        </main>
+        <main>{children}</main>
         <Footer />
       </div>
       <Toaster />
