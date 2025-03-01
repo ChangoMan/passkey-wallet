@@ -102,7 +102,7 @@ export const SendDrawer = ({ address, updateHistory }: SendDrawerProps) => {
               <AddressInput
                 value={toAddress}
                 placeholder="Enter recipient ENS or 0xAddress"
-                onChange={value => setToAddress(value)}
+                onChange={value => setToAddress(value.toLowerCase())}
               />
               <EtherInput value={amount} placeholder="0.00" onChange={value => setAmount(value.toString())} usdMode />
             </div>
