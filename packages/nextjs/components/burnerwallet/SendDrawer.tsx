@@ -16,7 +16,7 @@ type SendDrawerProps = {
 };
 
 export const SendDrawer = ({ address, updateHistory }: SendDrawerProps) => {
-  const toAddress = useGlobalState(state => state.sendEthToAddress);
+  const toAddress = useGlobalState(state => state.sendEthToAddress.toLowerCase());
   const setToAddress = useGlobalState(state => state.setSendEthToAddress);
   const isSendDrawerOpen = useGlobalState(state => state.isSendDrawerOpen);
   const setIsSendDrawerOpen = useGlobalState(state => state.setIsSendDrawerOpen);
