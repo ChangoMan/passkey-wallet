@@ -34,6 +34,7 @@ export const Header = ({ updateHistory }: HeaderProps) => {
     data: balance,
     isError,
     isFetched,
+    isLoading,
   } = useWatchBalance({
     address: connectedAddress,
   });
@@ -84,7 +85,7 @@ export const Header = ({ updateHistory }: HeaderProps) => {
             </div>
             <div className="flex items-center justify-center gap-4 mt-6">
               <ReceiveDrawer address={connectedAddress} />
-              {!hasNoBalance && <SendDrawer address={connectedAddress} updateHistory={updateHistory} />}
+              {!hasNoBalance && !isLoading && <SendDrawer address={connectedAddress} updateHistory={updateHistory} />}
               <EarnDrawer />
               {/* {hasNoBalance && (
                 <FundButton
