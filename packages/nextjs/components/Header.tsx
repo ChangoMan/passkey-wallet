@@ -1,15 +1,18 @@
 "use client";
 
 import { RandomLoadingBackground } from "./RandomLoadingBackground";
+import { EarnDrawer } from "./burnerwallet/EarnDrawer";
 import { coinbaseWallet } from "@wagmi/connectors";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useLocalStorage } from "usehooks-ts";
+import { formatEther } from "viem";
 import { useAccount, useConnect, useSwitchChain } from "wagmi";
 import { NetworksDropdown } from "~~/components/NetworksDropdown";
 import { ReceiveDrawer } from "~~/components/burnerwallet/ReceiveDrawer";
 import { SendDrawer } from "~~/components/burnerwallet/SendDrawer";
 import { SettingsDrawer } from "~~/components/burnerwallet/SettingsDrawer";
 import { Address, Balance } from "~~/components/scaffold-eth";
+import { useWatchBalance } from "~~/hooks/scaffold-eth/useWatchBalance";
 import { getTargetNetworks } from "~~/utils/scaffold-eth";
 
 const SCAFFOLD_CHAIN_ID_STORAGE_KEY = "scaffoldEth2.chainId";
@@ -27,6 +30,16 @@ export const Header = ({ updateHistory }: HeaderProps) => {
   const { address: connectedAddress, chain } = useAccount();
   const { switchChain } = useSwitchChain();
   const { connect } = useConnect();
+  const {
+    data: balance,
+    isError,
+    isFetched,
+  } = useWatchBalance({
+    address: connectedAddress,
+  });
+
+  const formattedBalance = balance ? Number(formatEther(balance.value)) : 0;
+  const hasNoBalance = isFetched && !isError && formattedBalance === 0;
 
   return (
     <div className="relative overflow-hidden">
@@ -69,9 +82,16 @@ export const Header = ({ updateHistory }: HeaderProps) => {
                 <Balance className="text-6xl" address={connectedAddress} usdMode />
               </div>
             </div>
-            <div className="flex items-center justify-center gap-6 mt-6">
+            <div className="flex items-center justify-center gap-4 mt-6">
               <ReceiveDrawer address={connectedAddress} />
-              <SendDrawer address={connectedAddress} updateHistory={updateHistory} />
+              {!hasNoBalance && <SendDrawer address={connectedAddress} updateHistory={updateHistory} />}
+              <EarnDrawer />
+              {/* {hasNoBalance && (
+                <FundButton
+                  className="btn btn-neutral bg-white/50 text-[0.875rem] font-semibold gap-0 leading-none"
+                  text="Fund Wallet"
+                />
+              )} */}
             </div>
           </>
         )}

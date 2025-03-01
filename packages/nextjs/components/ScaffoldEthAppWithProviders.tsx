@@ -1,5 +1,6 @@
 "use client";
 
+import { OnchainKitScaffoldProvider } from "./OnchainKitScaffoldProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import { Toaster } from "react-hot-toast";
@@ -47,8 +48,10 @@ export const ScaffoldEthAppWithProviders = ({
   return (
     <WagmiProvider config={wagmiConfig} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
-        <ProgressBar height="3px" color="#2299dd" />
-        <ScaffoldEthApp>{children}</ScaffoldEthApp>
+        <OnchainKitScaffoldProvider>
+          <ProgressBar height="3px" color="#2299dd" />
+          <ScaffoldEthApp>{children}</ScaffoldEthApp>
+        </OnchainKitScaffoldProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );

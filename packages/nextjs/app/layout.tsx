@@ -1,6 +1,6 @@
 import { Onest } from "next/font/google";
 import { headers } from "next/headers";
-import "@rainbow-me/rainbowkit/styles.css";
+import "@coinbase/onchainkit/styles.css";
 import { cookieToInitialState } from "wagmi";
 import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
 import { ThemeProvider } from "~~/components/ThemeProvider";
