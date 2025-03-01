@@ -41,6 +41,7 @@
     "react-qr-reader": "2.2.1",
     "react-select": "^5.10.0",
     "tailwind-merge": "^3.0.2",
+    "thirdweb": "^5.90.0",
     "use-debounce": "^10.0.4",
     "usehooks-ts": "~3.1.0",
     "vaul": "^1.1.2",

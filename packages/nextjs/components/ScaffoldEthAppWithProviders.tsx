@@ -4,6 +4,7 @@ import { OnchainKitScaffoldProvider } from "./OnchainKitScaffoldProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import { Toaster } from "react-hot-toast";
+import { ThirdwebProvider } from "thirdweb/react";
 import { type State, WagmiProvider, useAccount } from "wagmi";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
@@ -49,8 +50,10 @@ export const ScaffoldEthAppWithProviders = ({
     <WagmiProvider config={wagmiConfig} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
         <OnchainKitScaffoldProvider>
-          <ProgressBar height="3px" color="#2299dd" />
-          <ScaffoldEthApp>{children}</ScaffoldEthApp>
+          <ThirdwebProvider>
+            <ProgressBar height="3px" color="#2299dd" />
+            <ScaffoldEthApp>{children}</ScaffoldEthApp>
+          </ThirdwebProvider>
         </OnchainKitScaffoldProvider>
       </QueryClientProvider>
     </WagmiProvider>

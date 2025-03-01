@@ -1,12 +1,17 @@
 "use client";
 
+import { useEffect } from "react";
 import { RandomLoadingBackground } from "./RandomLoadingBackground";
 import { EarnDrawer } from "./burnerwallet/EarnDrawer";
+import { OnrampDrawer } from "./burnerwallet/OnrampDrawer";
 import { coinbaseWallet } from "@wagmi/connectors";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+import { useSetActiveWallet } from "thirdweb/react";
+import { EIP1193 } from "thirdweb/wallets";
 import { useLocalStorage } from "usehooks-ts";
 import { formatEther } from "viem";
 import { useAccount, useConnect, useSwitchChain } from "wagmi";
+import { client } from "~~/app/client";
 import { NetworksDropdown } from "~~/components/NetworksDropdown";
 import { ReceiveDrawer } from "~~/components/burnerwallet/ReceiveDrawer";
 import { SendDrawer } from "~~/components/burnerwallet/SendDrawer";
@@ -27,7 +32,7 @@ type HeaderProps = {
  */
 export const Header = ({ updateHistory }: HeaderProps) => {
   const setChainId = useLocalStorage<number>(SCAFFOLD_CHAIN_ID_STORAGE_KEY, networks[0].id)[1];
-  const { address: connectedAddress, chain } = useAccount();
+  const { address: connectedAddress, chain, connector } = useAccount();
   const { switchChain } = useSwitchChain();
   const { connect } = useConnect();
   const {
@@ -38,6 +43,26 @@ export const Header = ({ updateHistory }: HeaderProps) => {
   } = useWatchBalance({
     address: connectedAddress,
   });
+
+  const setActiveWallet = useSetActiveWallet(); // from thirdweb/react
+
+  useEffect(() => {
+    const setActive = async () => {
+      if (connector?.getProvider) {
+        const provider = (await connector?.getProvider({
+          chainId: chain?.id,
+        })) as any;
+        const thirdwebWallet = EIP1193.fromProvider({
+          provider,
+        });
+        await thirdwebWallet.connect({
+          client,
+        });
+        setActiveWallet(thirdwebWallet);
+      }
+    };
+    setActive();
+  }, [chain?.id, connector, setActiveWallet]);
 
   const formattedBalance = balance ? Number(formatEther(balance.value)) : 0;
   const hasNoBalance = isFetched && !isError && formattedBalance === 0;
@@ -87,12 +112,7 @@ export const Header = ({ updateHistory }: HeaderProps) => {
               <ReceiveDrawer address={connectedAddress} />
               {!hasNoBalance && !isLoading && <SendDrawer address={connectedAddress} updateHistory={updateHistory} />}
               <EarnDrawer />
-              {/* {hasNoBalance && (
-                <FundButton
-                  className="btn btn-neutral bg-white/50 text-[0.875rem] font-semibold gap-0 leading-none"
-                  text="Fund Wallet"
-                />
-              )} */}
+              {hasNoBalance && <OnrampDrawer />}
             </div>
           </>
         )}
