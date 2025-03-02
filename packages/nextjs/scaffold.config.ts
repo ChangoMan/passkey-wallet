@@ -15,26 +15,26 @@ export const DEFAULT_ALCHEMY_API_KEY = "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
 const scaffoldConfig = {
   // The networks on which your DApp is live
   targetNetworks: [
+    chains.base,
     chains.mainnet,
-    chains.polygon,
     chains.optimism,
     chains.arbitrum,
-    chains.base,
+    chains.polygon,
     chains.sepolia,
-    chains.optimismSepolia,
     chains.baseSepolia,
+    chains.optimismSepolia,
   ],
 
   alchemySDKChains: {
+    [chains.base.id]: Network.BASE_MAINNET,
     [chains.mainnet.id]: Network.ETH_MAINNET,
-    [chains.polygon.id]: Network.MATIC_MAINNET,
     [chains.optimism.id]: Network.OPT_MAINNET,
     [chains.arbitrum.id]: Network.ARB_MAINNET,
-    [chains.base.id]: Network.BASE_MAINNET,
+    [chains.polygon.id]: Network.MATIC_MAINNET,
     // Tests networks
     [chains.sepolia.id]: Network.ETH_SEPOLIA,
-    [chains.optimismSepolia.id]: Network.OPT_SEPOLIA,
     [chains.baseSepolia.id]: Network.BASE_SEPOLIA,
+    [chains.optimismSepolia.id]: Network.OPT_SEPOLIA,
   },
 
   // The interval at which your front-end polls the RPC servers for new data

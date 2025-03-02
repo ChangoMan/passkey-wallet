@@ -2,6 +2,7 @@
 
 import { RandomLoadingBackground } from "./RandomLoadingBackground";
 import { EarnDrawer } from "./burnerwallet/EarnDrawer";
+import { OnrampDrawer } from "./burnerwallet/OnrampDrawer";
 import { coinbaseWallet } from "@wagmi/connectors";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useLocalStorage } from "usehooks-ts";
@@ -85,14 +86,9 @@ export const Header = ({ updateHistory }: HeaderProps) => {
             </div>
             <div className="flex items-center justify-center gap-4 mt-6">
               <ReceiveDrawer address={connectedAddress} />
+              <OnrampDrawer />
               {!hasNoBalance && !isLoading && <SendDrawer address={connectedAddress} updateHistory={updateHistory} />}
               <EarnDrawer />
-              {/* {hasNoBalance && (
-                <FundButton
-                  className="btn btn-neutral bg-white/50 text-[0.875rem] font-semibold gap-0 leading-none"
-                  text="Fund Wallet"
-                />
-              )} */}
             </div>
           </>
         )}
