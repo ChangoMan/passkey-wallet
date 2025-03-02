@@ -28,7 +28,7 @@ type HeaderProps = {
  */
 export const Header = ({ updateHistory }: HeaderProps) => {
   const setChainId = useLocalStorage<number>(SCAFFOLD_CHAIN_ID_STORAGE_KEY, networks[0].id)[1];
-  const { address: connectedAddress, chain } = useAccount();
+  const { address: connectedAddress, chain, status } = useAccount();
   const { switchChain } = useSwitchChain();
   const { connect } = useConnect();
   const {
@@ -56,9 +56,9 @@ export const Header = ({ updateHistory }: HeaderProps) => {
           />
         </div>
       )}
-      {!connectedAddress && <RandomLoadingBackground />}
+      {status !== "connected" && <RandomLoadingBackground />}
       <div className="relative z-10 p-6 glass">
-        {connectedAddress && (
+        {status === "connected" && (
           <>
             <div className="flex justify-between items-center mb-6">
               <SettingsDrawer />
@@ -92,7 +92,7 @@ export const Header = ({ updateHistory }: HeaderProps) => {
             </div>
           </>
         )}
-        {!connectedAddress && (
+        {status === "disconnected" && (
           <>
             <div className="flex items-center justify-center min-h-80 text-center">
               <div>
@@ -119,6 +119,9 @@ export const Header = ({ updateHistory }: HeaderProps) => {
               </div>
             </div>
           </>
+        )}
+        {(status === "reconnecting" || status === "connecting") && (
+          <div className="flex items-center justify-center min-h-72 text-center"></div>
         )}
       </div>
     </div>
