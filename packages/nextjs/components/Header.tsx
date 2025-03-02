@@ -110,9 +110,9 @@ export const Header = ({ updateHistory }: HeaderProps) => {
             </div>
             <div className="flex items-center justify-center gap-4 mt-6">
               <ReceiveDrawer address={connectedAddress} />
+              {hasNoBalance && <OnrampDrawer />}
               {!hasNoBalance && !isLoading && <SendDrawer address={connectedAddress} updateHistory={updateHistory} />}
               <EarnDrawer />
-              {hasNoBalance && <OnrampDrawer />}
             </div>
           </>
         )}
