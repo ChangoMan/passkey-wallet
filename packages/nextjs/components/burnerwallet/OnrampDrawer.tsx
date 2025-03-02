@@ -13,7 +13,7 @@ export const OnrampDrawer = () => {
         <DrawerHeader>
           <DrawerTitle className="mt-1 text-2xl">Buy</DrawerTitle>
         </DrawerHeader>
-        <div className="mb-16 px-4 md:w-[32rem] md:mx-auto">
+        <div className="mb-20 px-4 md:w-[32rem] md:mx-auto">
           <FundCard
             assetSymbol="ETH"
             country="US"

@@ -84,7 +84,7 @@ export const Header = ({ updateHistory }: HeaderProps) => {
                 <Balance className="text-6xl" address={connectedAddress} usdMode />
               </div>
             </div>
-            <div className="flex items-center justify-center gap-4 mt-6">
+            <div className="flex items-center justify-center gap-2 mt-6">
               <ReceiveDrawer address={connectedAddress} />
               <OnrampDrawer />
               {!hasNoBalance && !isLoading && <SendDrawer address={connectedAddress} updateHistory={updateHistory} />}
