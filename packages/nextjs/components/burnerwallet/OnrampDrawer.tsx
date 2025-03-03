@@ -5,8 +5,8 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerLine, DrawerTitle, DrawerTri
 export const OnrampDrawer = () => {
   return (
     <Drawer>
-      <DrawerTrigger className="btn btn-neutral bg-white/50">
-        <CreditCardIcon className="w-6" /> Buy
+      <DrawerTrigger className="btn btn-neutral cta">
+        <CreditCardIcon className="w-5" /> Buy
       </DrawerTrigger>
       <DrawerContent>
         <DrawerLine />

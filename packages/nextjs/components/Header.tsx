@@ -4,6 +4,7 @@ import { RandomLoadingBackground } from "./RandomLoadingBackground";
 import { EarnDrawer } from "./burnerwallet/EarnDrawer";
 import { OnrampDrawer } from "./burnerwallet/OnrampDrawer";
 import { coinbaseWallet } from "@wagmi/connectors";
+import clsx from "clsx";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useLocalStorage } from "usehooks-ts";
 import { formatEther } from "viem";
@@ -43,6 +44,8 @@ export const Header = ({ updateHistory }: HeaderProps) => {
   const formattedBalance = balance ? Number(formatEther(balance.value)) : 0;
   const hasNoBalance = isFetched && !isError && formattedBalance === 0;
 
+  const isBase = chain?.id === 8453;
+
   return (
     <div className="relative overflow-hidden">
       {connectedAddress && (
@@ -57,10 +60,10 @@ export const Header = ({ updateHistory }: HeaderProps) => {
         </div>
       )}
       {status !== "connected" && <RandomLoadingBackground />}
-      <div className="relative z-10 p-6 glass">
+      <div className="relative z-10 py-6 glass">
         {status === "connected" && (
           <>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-6 px-4">
               <SettingsDrawer />
               <div className="flex">
                 <NetworksDropdown
@@ -84,11 +87,16 @@ export const Header = ({ updateHistory }: HeaderProps) => {
                 <Balance className="text-6xl" address={connectedAddress} usdMode />
               </div>
             </div>
-            <div className="flex items-center justify-center gap-2 mt-6">
+            <div
+              className={clsx(
+                "px-4 flex items-center gap-2 mt-6 overflow-auto",
+                isBase ? "justify-start sm:justify-center" : "justify-center",
+              )}
+            >
               <ReceiveDrawer address={connectedAddress} />
               <OnrampDrawer />
               {!hasNoBalance && !isLoading && <SendDrawer address={connectedAddress} updateHistory={updateHistory} />}
-              <EarnDrawer />
+              {isBase && <EarnDrawer />}
             </div>
           </>
         )}
@@ -98,7 +106,7 @@ export const Header = ({ updateHistory }: HeaderProps) => {
               <div>
                 <h1 className="text-3xl font-medium">Smart Burner Wallet</h1>
                 <p className="text-lg">
-                  Quickly create and manage a smart wallet using a passkey. Backed by enterprise-grade security with
+                  Quickly create and manage a smart wallet using passkeys. Backed by enterprise-grade security with
                   Coinbase.
                 </p>
                 <button

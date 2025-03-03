@@ -30,3 +30,7 @@ p {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+.btn.cta {
+  @apply bg-white/50 px-3 text-sm h-10 min-h-10;
+}

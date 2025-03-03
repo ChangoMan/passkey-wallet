@@ -14,7 +14,10 @@ const onest = Onest({
   variable: "--font-onest",
 });
 
-export const metadata = getMetadata({ title: "Scaffold-ETH 2 App", description: "Built with 🏗 Scaffold-ETH 2" });
+export const metadata = getMetadata({
+  title: "Smart Burner Wallet",
+  description: "Quickly create and manage a smart wallet using passkeys.",
+});
 
 const ScaffoldEthApp = async ({ children }: { children: React.ReactNode }) => {
   const initialState = cookieToInitialState(wagmiConfig, (await headers()).get("cookie"));

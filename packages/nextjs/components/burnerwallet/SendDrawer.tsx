@@ -88,8 +88,8 @@ export const SendDrawer = ({ address, updateHistory }: SendDrawerProps) => {
 
   return (
     <Drawer open={isSendDrawerOpen} onOpenChange={setIsSendDrawerOpen}>
-      <DrawerTrigger id="send-eth-drawer" className="btn btn-neutral bg-white/50">
-        <PaperAirplaneIcon className="w-6" /> Send
+      <DrawerTrigger id="send-eth-drawer" className="btn btn-neutral cta">
+        <PaperAirplaneIcon className="w-5" /> Send
       </DrawerTrigger>
       <DrawerContent>
         <DrawerLine />
