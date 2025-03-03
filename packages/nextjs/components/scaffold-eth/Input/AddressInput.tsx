@@ -5,6 +5,8 @@ import { Address, isAddress } from "viem";
 import { normalize } from "viem/ens";
 import { useEnsAddress, useEnsAvatar, useEnsName } from "wagmi";
 import { CommonInputProps, InputBase, isENS } from "~~/components/scaffold-eth";
+import ScanIcon from "~~/icons/ScanIcon";
+import { useGlobalState } from "~~/services/store/store";
 
 /**
  * Address input with ENS name resolution
@@ -18,6 +20,8 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
 
   // If the user changes the input after an ENS name is already resolved, we want to remove the stale result
   const settledValue = isDebouncedValueLive ? debouncedValue : undefined;
+
+  const setIsQrReaderOpen = useGlobalState(state => state.setIsQrReaderOpen);
 
   const {
     data: ensAddress,
@@ -78,43 +82,45 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
     ensName === null ||
     ensAddress === null;
 
+  const avatarStyles = "rounded-full border-2 border-white shadow-md";
+
   return (
-    <InputBase<Address>
-      name={name}
-      placeholder={placeholder}
-      error={ensAddress === null}
-      value={value as Address}
-      onChange={onChange}
-      disabled={isEnsAddressLoading || isEnsNameLoading || disabled}
-      reFocus={reFocus}
-      prefix={
-        ensName ? (
-          <div className="flex bg-base-300 rounded-l-full items-center">
-            {isEnsAvatarLoading && <div className="skeleton bg-base-200 w-[35px] h-[35px] rounded-full shrink-0"></div>}
-            {ensAvatar ? (
-              <span className="w-[35px]">
-                {
-                  // eslint-disable-next-line
-                  <img className="w-full rounded-full" src={ensAvatar} alt={`${ensAddress} avatar`} />
-                }
-              </span>
-            ) : null}
-            <span className="text-accent px-2">{enteredEnsName ?? ensName}</span>
-          </div>
-        ) : (
-          (isEnsNameLoading || isEnsAddressLoading) && (
-            <div className="flex bg-base-300 rounded-l-full items-center gap-2 pr-2">
-              <div className="skeleton bg-base-200 w-[35px] h-[35px] rounded-full shrink-0"></div>
-              <div className="skeleton bg-base-200 h-3 w-20"></div>
-            </div>
-          )
-        )
-      }
-      suffix={
-        // Don't want to use nextJS Image here (and adding remote patterns for the URL)
+    <div className="flex flex-col gap-3 items-center w-full">
+      {value && !ensAvatar && (
         // eslint-disable-next-line @next/next/no-img-element
-        value && <img alt="" className="!rounded-full" src={blo(value as `0x${string}`)} width="35" height="35" />
-      }
-    />
+        <img alt="" className={avatarStyles} src={blo(value as `0x${string}`)} width={96} height={96} />
+      )}
+      {ensAvatar && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img alt={`${ensAddress} avatar`} className={avatarStyles} src={ensAvatar} width={96} height={96} />
+      )}
+      {!value && !ensAvatar && <div className={`${avatarStyles} w-24 h-24 bg-slate-300`}></div>}
+      <div className="flex items-center justify-between gap-4 w-full">
+        <div className="flex-1">
+          <InputBase<Address>
+            name={name}
+            placeholder={placeholder}
+            error={ensAddress === null}
+            value={value as Address}
+            onChange={onChange}
+            disabled={isEnsAddressLoading || isEnsNameLoading || disabled}
+            reFocus={reFocus}
+            prefix={
+              ensName && (
+                <div className="flex bg-accent text-accent-content rounded-l-md items-center">
+                  <span className="px-2">{enteredEnsName ?? ensName}</span>
+                </div>
+              )
+            }
+          />
+        </div>
+        <button
+          className="shrink-0 w-12 h-12 bg-accent text-accent-content rounded-lg"
+          onClick={() => setIsQrReaderOpen(true)}
+        >
+          <ScanIcon width="28" height="28" className="mx-auto" />
+        </button>
+      </div>
+    </div>
   );
 };

@@ -70,6 +70,11 @@ export const EtherInput = ({
     return newDisplayValue;
   }, [nativeCurrencyPrice, transitoryDisplayValue, displayUsdMode, value]);
 
+  const oppositeDisplayValue = useMemo(() => {
+    const newDisplayValue = etherValueToDisplayValue(!displayUsdMode, value, nativeCurrencyPrice);
+    return newDisplayValue;
+  }, [nativeCurrencyPrice, displayUsdMode, value]);
+
   const handleChangeNumber = (newValue: string) => {
     if (newValue && !SIGNED_NUMBER_REGEX.test(newValue)) {
       return;
@@ -97,32 +102,41 @@ export const EtherInput = ({
   };
 
   return (
-    <InputBase
-      name={name}
-      value={displayValue}
-      placeholder={placeholder}
-      onChange={handleChangeNumber}
-      disabled={disabled}
-      prefix={<span className="pl-4 -mr-2 text-accent self-center">{displayUsdMode ? "$" : "Ξ"}</span>}
-      suffix={
-        <div
-          className={`${
-            nativeCurrencyPrice > 0
-              ? ""
-              : "tooltip tooltip-secondary before:content-[attr(data-tip)] before:right-[-10px] before:left-auto before:transform-none"
-          }`}
-          data-tip={isNativeCurrencyPriceFetching ? "Fetching price" : "Unable to fetch price"}
-        >
-          <button
-            className="btn btn-primary h-[2.2rem] min-h-[2.2rem]"
-            onClick={toggleDisplayUsdMode}
-            disabled={!displayUsdMode && !nativeCurrencyPrice}
-            type="button"
+    <div>
+      <InputBase
+        name={name}
+        value={displayValue}
+        placeholder={placeholder}
+        onChange={handleChangeNumber}
+        disabled={disabled}
+        prefix={<span className="pl-4 -mr-2 text-accent self-center">{displayUsdMode ? "$" : "Ξ"}</span>}
+        suffix={
+          <div
+            className={`${
+              nativeCurrencyPrice > 0
+                ? ""
+                : "tooltip tooltip-secondary before:content-[attr(data-tip)] before:right-[-10px] before:left-auto before:transform-none"
+            }`}
+            data-tip={isNativeCurrencyPriceFetching ? "Fetching price" : "Unable to fetch price"}
           >
-            <ArrowsRightLeftIcon className="h-3 w-3 cursor-pointer" aria-hidden="true" />
-          </button>
-        </div>
-      }
-    />
+            <button
+              className="btn btn-sm btn-ghost mt-2"
+              onClick={toggleDisplayUsdMode}
+              disabled={!displayUsdMode && !nativeCurrencyPrice}
+              type="button"
+            >
+              <ArrowsRightLeftIcon className="h-6 w-6 cursor-pointer" aria-hidden="true" />
+            </button>
+          </div>
+        }
+      />
+      <p className="mt-2 mb-0 ml-5 text-left text-sm opacity-50 h-5">
+        {value && (
+          <span>
+            <span className="font-mono">{displayUsdMode ? "Ξ" : "$"}</span> {oppositeDisplayValue}
+          </span>
+        )}
+      </p>
+    </div>
   );
 };
