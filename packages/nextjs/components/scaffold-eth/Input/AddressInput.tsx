@@ -52,7 +52,7 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
     },
   });
 
-  const { data: ensAvatar, isLoading: isEnsAvatarLoading } = useEnsAvatar({
+  const { data: ensAvatar } = useEnsAvatar({
     name: ensName ? normalize(ensName) : undefined,
     chainId: 1,
     query: {
