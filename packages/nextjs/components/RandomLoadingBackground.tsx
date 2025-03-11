@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-import { cn } from "~~/utils/cn";
 
 // Addresses to cycle through
 const ADDRESSES = [
@@ -16,35 +16,87 @@ const ADDRESSES = [
   "0xE3F3Acda31De82C4bC3d3070F519906bDFc497e4",
 ];
 
+const MotionWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <motion.div
+      className="relative"
+      transition={{
+        type: "spring",
+        damping: 20,
+        stiffness: 300,
+      }}
+      initial={{ opacity: 0.5, scale: 0.5, left: 200 }}
+      animate={{ opacity: 1, scale: 1, left: 0 }}
+      exit={{ opacity: 0.5, scale: 0.5, left: -200 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 export const RandomLoadingBackground = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // When there is a loading state, cycle through the ADDRESSES above
-    // to mimic a burner wallet being generated.
     const interval = setInterval(() => {
-      if (count === 7) {
+      if (count === 4) {
         setCount(0);
         return;
       }
-      setCount(count + 1);
-    }, 1000);
 
-    // Clear the interval
+      setCount(count + 1);
+    }, 3000);
+
     return () => clearInterval(interval);
   }, [count]);
 
-  const address = ADDRESSES[count];
-
   return (
-    <div className={cn("absolute inset-0 flex items-center justify-center saturate-50 opacity-40")}>
+    <div className="absolute inset-0 flex items-center justify-center opacity-70">
+      <AnimatePresence>
+        {[0, 1, 2, 3, 4].map(index => (
+          <div key={index}>
+            {count === index && (
+              <MotionWrapper>
+                <Jazzicon
+                  diameter={600}
+                  paperStyles={{
+                    borderRadius: 0,
+                  }}
+                  seed={jsNumberForAddress(ADDRESSES[index])}
+                />
+              </MotionWrapper>
+            )}
+          </div>
+        ))}
+      </AnimatePresence>
+      {/* <Jazzicon
+        diameter={600}
+        paperStyles={{
+          borderRadius: 0,
+        }}
+        seed={jsNumberForAddress(ADDRESSES[1])}
+      />
       <Jazzicon
         diameter={600}
         paperStyles={{
           borderRadius: 0,
         }}
-        seed={jsNumberForAddress(address)}
+        seed={jsNumberForAddress(ADDRESSES[2])}
       />
+      <Jazzicon
+        diameter={600}
+        paperStyles={{
+          borderRadius: 0,
+        }}
+        seed={jsNumberForAddress(ADDRESSES[3])}
+      />
+      <Jazzicon
+        diameter={600}
+        paperStyles={{
+          borderRadius: 0,
+        }}
+        seed={jsNumberForAddress(ADDRESSES[4])}
+      /> */}
     </div>
   );
 };
