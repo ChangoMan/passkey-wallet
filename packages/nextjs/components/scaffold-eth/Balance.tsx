@@ -32,10 +32,9 @@ export const Balance = ({ address, className = "", usdMode }: BalanceProps) => {
 
   if (!address || isLoading || balance === null || (isNativeCurrencyPriceFetching && nativeCurrencyPrice === 0)) {
     return (
-      <div className="animate-pulse flex space-x-4">
-        <div className="rounded-md bg-slate-300 h-6 w-6"></div>
-        <div className="flex items-center space-y-6">
-          <div className="h-2 w-28 bg-slate-300 rounded"></div>
+      <div className="animate-pulse flex">
+        <div className="flex items-center">
+          <div className="h-14 w-32 bg-slate-300 rounded"></div>
         </div>
       </div>
     );
@@ -53,7 +52,7 @@ export const Balance = ({ address, className = "", usdMode }: BalanceProps) => {
 
   return (
     <button
-      className={`btn btn-sm btn-ghost flex flex-col font-normal items-center hover:bg-transparent ${className}`}
+      className={`btn btn-ghost h-auto flex flex-col font-normal items-center hover:bg-transparent ${className}`}
       onClick={toggleDisplayUsdMode}
       type="button"
     >
