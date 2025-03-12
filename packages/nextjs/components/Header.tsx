@@ -104,8 +104,10 @@ export const Header = ({ updateHistory }: HeaderProps) => {
           <>
             <div className="flex items-center justify-center min-h-80 text-center">
               <div className="px-2">
-                <h1 className="text-4xl font-semibold [text-shadow:_0_1px_1px_rgb(0_0_0_/_40%)]">Instant Wallet</h1>
-                <p className="text-lg [text-shadow:_0_1px_1px_rgb(0_0_0_/_40%)]">
+                <h1 className="text-4xl font-semibold [text-shadow:_0_1px_1px_rgb(255_255_255_/_60%)] dark:[text-shadow:_0_1px_1px_rgb(0_0_0_/_40%)]">
+                  Instant Wallet
+                </h1>
+                <p className="text-lg [text-shadow:_0_1px_1px_rgb(255_255_255_/_40%)] dark:[text-shadow:_0_1px_1px_rgb(0_0_0_/_40%)]">
                   Quickly create and manage an Ethereum wallet using your fingerprint. Backed by enterprise-grade
                   security with Coinbase.
                 </p>
