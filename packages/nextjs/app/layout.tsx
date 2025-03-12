@@ -15,7 +15,7 @@ const onest = Onest({
 });
 
 export const metadata = getMetadata({
-  title: "Smart Burner Wallet",
+  title: "Smart Wallet",
   description: "Quickly create and manage a smart wallet using passkeys.",
 });
 
