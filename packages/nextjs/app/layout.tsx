@@ -15,8 +15,8 @@ const onest = Onest({
 });
 
 export const metadata = getMetadata({
-  title: "Smart Wallet",
-  description: "Quickly create and manage a smart wallet using passkeys.",
+  title: "Instant Wallet",
+  description: "Quickly create and manage an Ethereum smart wallet using just your fingerprint.",
 });
 
 const ScaffoldEthApp = async ({ children }: { children: React.ReactNode }) => {

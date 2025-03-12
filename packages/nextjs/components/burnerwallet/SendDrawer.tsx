@@ -92,12 +92,12 @@ export const SendDrawer = ({ address, updateHistory }: SendDrawerProps) => {
         <PaperAirplaneIcon className="w-5" /> Send
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerLine />
-        <DrawerHeader>
-          <DrawerTitle className="mt-1 text-2xl">Send</DrawerTitle>
-        </DrawerHeader>
-        <div>
-          <div className="max-w-lg mx-auto mt-4">
+        <div className="mx-auto w-full max-w-lg">
+          <DrawerLine />
+          <DrawerHeader>
+            <DrawerTitle className="mt-1 text-2xl">Send</DrawerTitle>
+          </DrawerHeader>
+          <div>
             <div className="flex flex-col gap-4 px-6">
               <AddressInput
                 value={toAddress}

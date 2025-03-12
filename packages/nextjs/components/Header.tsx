@@ -103,18 +103,18 @@ export const Header = ({ updateHistory }: HeaderProps) => {
         {status === "disconnected" && (
           <>
             <div className="flex items-center justify-center min-h-80 text-center">
-              <div className="px-4">
-                <h1 className="text-3xl font-medium [text-shadow:_0_1px_1px_rgb(0_0_0_/_40%)]">Smart Wallet</h1>
+              <div className="px-2">
+                <h1 className="text-3xl font-medium [text-shadow:_0_1px_1px_rgb(0_0_0_/_40%)]">Instant Wallet</h1>
                 <p className="text-lg [text-shadow:_0_1px_1px_rgb(0_0_0_/_40%)]">
-                  Quickly create and manage a smart wallet using passkeys. Backed by enterprise-grade security with
-                  Coinbase.
+                  Quickly create and manage an Ethereum wallet using your fingerprint. Backed by enterprise-grade
+                  security with Coinbase.
                 </p>
                 <button
                   className="mt-4 btn btn-lg btn-primary"
                   onClick={() =>
                     connect({
                       connector: coinbaseWallet({
-                        appName: "Passkey Wallet",
+                        appName: "Instant Wallet",
                         preference: {
                           options: "smartWalletOnly",
                         },
