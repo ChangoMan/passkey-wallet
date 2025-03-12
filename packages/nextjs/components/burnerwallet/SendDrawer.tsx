@@ -87,7 +87,7 @@ export const SendDrawer = ({ address, updateHistory }: SendDrawerProps) => {
   }
 
   return (
-    <Drawer open={isSendDrawerOpen} onOpenChange={setIsSendDrawerOpen}>
+    <Drawer open={isSendDrawerOpen} onOpenChange={setIsSendDrawerOpen} repositionInputs={false}>
       <DrawerTrigger id="send-eth-drawer" className="btn btn-neutral cta">
         <PaperAirplaneIcon className="w-5" /> Send
       </DrawerTrigger>
@@ -106,7 +106,7 @@ export const SendDrawer = ({ address, updateHistory }: SendDrawerProps) => {
               />
               <EtherInput value={amount} placeholder="0.00" onChange={value => setAmount(value.toString())} usdMode />
             </div>
-            <div className="flex flex-col gap-8 mt-2 px-6 pb-12">
+            <div className="flex flex-col gap-2 mt-2 px-6 pb-12">
               <div className="flex items-center justify-center m-0 text-lg">
                 Balance:
                 <Balance address={address} className="text-lg" usdMode />
