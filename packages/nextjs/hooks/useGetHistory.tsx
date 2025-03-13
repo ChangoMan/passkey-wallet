@@ -124,6 +124,32 @@ export const useGetHistory = ({ address }: { address: string }) => {
     refetchInterval: scaffoldConfig.pollingInterval,
   });
 
+  const {
+    data: dataCoinbase,
+    isLoading: isCoinbaseLoading,
+    isFetched: isCoinbaseFetched,
+  } = useQuery({
+    queryKey: ["coinbase", address, chain?.id],
+    queryFn: async () => {
+      const body = JSON.stringify({
+        jsonrpc: "2.0",
+        id: 1,
+        method: "cdp_listAddressTransactions",
+        params: [{ address: address, pageToken: "", pageSize: 100 }],
+      });
+
+      const data = await fetch("https://api.developer.coinbase.com/rpc/v1/base/toMil9HUL6NRT3KrMcGXmkI59inTY5Yi", {
+        body,
+        method: "POST",
+      });
+      const json = await data.json();
+      return json;
+    },
+    refetchInterval: scaffoldConfig.pollingInterval,
+  });
+
+  console.log("dataCoinbase", dataCoinbase?.result?.addressTransactions);
+
   const updateHistory = useCallback(
     async (dataFrom: AssetTransfersResponse, dataTo: AssetTransfersResponse) => {
       const dataFromBlockNumbers = dataFrom.transfers.map(item => item.blockNum);
