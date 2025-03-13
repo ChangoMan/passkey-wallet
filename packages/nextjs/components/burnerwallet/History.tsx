@@ -28,14 +28,14 @@ export const History = ({ chainId, isLoading, history }: HistoryProps) => {
           <ul>
             {historyItem.items.map((item, index) => (
               <li key={`${historyItem.date}-${index}`} className="flex justify-between items-center gap-4 pt-4">
-                <div className="flex flex-shrink-0 items-center justify-center w-10 h-10 bg-secondary text-secondary-content rounded-full">
+                <div className="flex flex-shrink-0 items-center justify-center w-8 h-8 bg-secondary text-secondary-content rounded-full">
                   {item.icon}
                 </div>
                 <div className="grow text-left flex flex-col">
-                  <p className="text-md font-medium m-0">{item.categoryLabel}</p>
+                  <p className="text-sm font-medium m-0">{item.categoryLabel}</p>
                   <TransactionHashLink hash={item.hash} chainId={chainId} />
                 </div>
-                <div>
+                <div className="text-sm">
                   {item.value ? (
                     <>
                       {item.type === "sent" ? "-" : "+"}
