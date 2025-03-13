@@ -20,7 +20,7 @@ const scaffoldConfig = {
     chains.optimism,
     chains.arbitrum,
     chains.polygon,
-    chains.sepolia,
+    // chains.sepolia,
     chains.baseSepolia,
     chains.optimismSepolia,
   ],
@@ -32,7 +32,7 @@ const scaffoldConfig = {
     [chains.arbitrum.id]: Network.ARB_MAINNET,
     [chains.polygon.id]: Network.MATIC_MAINNET,
     // Tests networks
-    [chains.sepolia.id]: Network.ETH_SEPOLIA,
+    // [chains.sepolia.id]: Network.ETH_SEPOLIA,
     [chains.baseSepolia.id]: Network.BASE_SEPOLIA,
     [chains.optimismSepolia.id]: Network.OPT_SEPOLIA,
   },

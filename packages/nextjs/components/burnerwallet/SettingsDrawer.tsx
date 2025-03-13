@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useDisconnect } from "wagmi";
 import {
+  ChartPieIcon,
   ChevronLeftIcon,
   Cog6ToothIcon,
   CurrencyDollarIcon,
@@ -44,11 +45,20 @@ export const SettingsDrawer = () => {
           </div>
           <div className="py-3">
             <Link
+              href="https://wallet.coinbase.com/assets"
+              className="inline-block hover:text-accent hover:underline"
+              target="_blank"
+            >
+              <ChartPieIcon className="inline-block w-5 h-5 -mt-1 mr-2" /> View All Assets
+            </Link>
+          </div>
+          <div className="py-3">
+            <Link
               href="https://help.coinbase.com/en/wallet/getting-started/smart-wallet-recovery"
               className="inline-block hover:text-accent hover:underline"
               target="_blank"
             >
-              <LockClosedIcon className="inline-block w-5 h-5 -mt-1" /> Smart Wallet Recovery
+              <LockClosedIcon className="inline-block w-5 h-5 -mt-1 mr-2" /> Smart Wallet Recovery
             </Link>
           </div>
           <div className="pt-4">

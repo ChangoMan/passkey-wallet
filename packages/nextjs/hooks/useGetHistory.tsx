@@ -80,7 +80,7 @@ export const useGetHistory = ({ address }: { address: string }) => {
           chain && chain.rpcUrls
             ? (chain.rpcUrls["default"].http as unknown as string)
             : "https://eth-mainnet.g.alchemy.com/v2",
-          { batch: false }, // Batch is not supported on Free Tier
+          { batch: true }, // Batch is not supported on Free Tier
         ),
       }),
     [chain],
